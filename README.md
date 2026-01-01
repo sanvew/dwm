@@ -7,8 +7,12 @@
 - [adjacenttag](https://dwm.suckless.org/patches/adjacenttag/)
 
 ## Installation
-Installed into the *~/.local/bin*
+Installed into the `~/.local/bin`
 
 ```sh
 make clean install
 ```
+
+## Credits
+[project home page](https://dwm.suckless.org/)
+
