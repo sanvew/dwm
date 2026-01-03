@@ -5,6 +5,7 @@
 - [stacker](https://dwm.suckless.org/patches/stacker/)
 - [hide_vacant_tags](https://dwm.suckless.org/patches/hide_vacant_tags/)
 - [adjacenttag](https://dwm.suckless.org/patches/adjacenttag/)
+- [cursorwarp](https://dwm.suckless.org/patches/cursorwarp/) - cursor warps only on monitor switch
 
 ## Installation
 Installed into the `~/.local/bin`
