@@ -5,8 +5,10 @@
 - [stacker](https://dwm.suckless.org/patches/stacker/)
 - [hide_vacant_tags](https://dwm.suckless.org/patches/hide_vacant_tags/)
 - [adjacenttag](https://dwm.suckless.org/patches/adjacenttag/)
-- [cursorwarp](https://dwm.suckless.org/patches/cursorwarp/) - cursor warps only on monitor switch
+- [cursorwarp](https://dwm.suckless.org/patches/cursorwarp/) - move cursor to focused monitor
 - [restartsig](https://dwm.suckless.org/patches/restartsig/) - dwm hot reload via Mod+Shift+r
+- [preserveonrestart](https://dwm.suckless.org/patches/preserveonrestart/) - restore layout (tag/monitor position) after "hot reload"
+
 
 ## Installation
 Installed into the `~/.local/bin`
