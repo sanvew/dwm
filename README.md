@@ -10,6 +10,7 @@
 - [preserveonrestart](https://dwm.suckless.org/patches/preserveonrestart/) - restore layout (tag/monitor position) after "hot reload"
 - [attachasideandbelow](https://dwm.suckless.org/patches/attachasideandbelow/) - spawn new client on the bottom of the stack
 - [fixborders(alpha)](https://dwm.suckless.org/patches/alpha/) - make borders opaque
+- [swallow](https://dwm.suckless.org/patches/swallow/) - "swallow" terminal window when gui app launches
 
 ## Installation
 Installed into the `~/.local/bin`
