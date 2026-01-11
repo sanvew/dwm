@@ -29,8 +29,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class          instance  title                             tags mask  isfloating  isterminal  noswallow  monitor */
-	/* Tab Limiter chromium extension */
-	{ NULL,            NULL,     "The extension Tab Limiter says", 0,         1,          0,           0,        -1 },
+	{ NULL,            NULL,     "The extension Tab Limiter says", 0,         1,          0,           0,        -1 }, /* Tab Limiter chromium extension */
 	{ NULL,            NULL,     "st",                             0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,     "Event Tester",                   0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -60,27 +59,19 @@ static const Layout layouts[] = {
 	{ MOD, XK_j,     ACTION##stack, {.i = INC(+1) } }, \
 	{ MOD, XK_k,     ACTION##stack, {.i = INC(-1) } }, \
 	{ MOD, XK_grave, ACTION##stack, {.i = PREVSEL } }, \
-	{ MOD, XK_q,     ACTION##stack, {.i = 0 } }, \
-	{ MOD, XK_a,     ACTION##stack, {.i = 1 } }, \
-	{ MOD, XK_z,     ACTION##stack, {.i = 2 } }, \
-	{ MOD, XK_x,     ACTION##stack, {.i = -1 } },
 
-#define SHCMD "/bin/sh", "-c"
 #define STATUSBAR "dwmblocks"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-l", "15", "-m", dmenumon, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
 static const char *termcmd[]  = { "st", NULL };
-// TODO: create separate script with notifications
-static const char *dwmreload_shcmd[] = { SHCMD, "make -C ~/.local/src/dwm clean install && kill -HUP $(pidof dwm)", NULL };
-// TODO: create separate script with notifications
-static const char *dwmblocksreload_shcmd[] = { SHCMD, "make -C ~/.local/src/dwmblocks-async clean install && kill -HUP $(pidof dwmblocks)", NULL };
 
 /*
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
+		{ "font",               STRING,  &font },
 		{ "normbgcolor",        STRING,  &normbgcolor },
 		{ "normbordercolor",    STRING,  &normbordercolor },
 		{ "normfgcolor",        STRING,  &normfgcolor },
@@ -98,9 +89,13 @@ ResourcePref resources[] = {
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+	/* command and menus (dmenu) launch */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Delete, spawn,          {.v = (const char*[]){ "dmenu-power", NULL }} },
+	{ MODKEY,                       XK_n,      spawn,          {.v = (const char*[]){ "logseq", NULL }} },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	/* moving around and manipulating windows (clients) */
 	STACKKEYS(MODKEY,                          focus)
 	STACKKEYS(MODKEY|ShiftMask,                push)
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -117,7 +112,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_Up   ,  focusmon,       {.i = -1 } },
+	/* moving around tags/monitors */
+	{ MODKEY,                       XK_Up,     focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_Down,   focusmon,       {.i = +1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
@@ -138,8 +134,9 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_r,         spawn,       { .v = dwmreload_shcmd } },
-	{ MODKEY|ShiftMask|ControlMask, XK_r,         spawn,       { .v = dwmblocksreload_shcmd } },
+	/* reloading configuration and session exit */
+	{ MODKEY|ShiftMask,             XK_r,         spawn,       {.v = (const char*[]){ "reload-dwm", NULL }} },
+	{ MODKEY|ShiftMask|ControlMask, XK_r,         spawn,       {.v = (const char*[]){ "reload-dwmblocks", NULL }} },
 	{ MODKEY|ShiftMask,             XK_BackSpace, quit,        {0} },
 };
 
